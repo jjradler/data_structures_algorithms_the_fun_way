@@ -1,0 +1,24 @@
+/*
+ * main.cpp
+ * Test application of insertion sort code example.
+ * jjradler
+ * 04/24/25
+ */
+
+#include <iostream>
+#include "insertion_sort.h"
+
+
+int main()
+{
+    int testArray[10] = {6, 4, 7, 2, 8, 30, 23, 37, 32, 75};
+    std::cout << "Original array: [" << testArray << "]" << std::endl;
+
+    int sortedArray[10];
+    sortedArray = insertion_sort::sort(testArray);
+
+    std::cout << "Sorted Array: [" << sortedArray << "]" << std::endl;
+
+    return 0;
+}
+

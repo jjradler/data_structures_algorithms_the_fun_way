@@ -59,6 +59,7 @@ I might also use the `chrono` library in `C++` like this in the `main.cpp` modul
 #include <chrono>
 #include <iostream> 
 #include "linear_scan.h"
+using namespace std; 
 using namespace std::chrono; 
 
 int main()
@@ -95,5 +96,124 @@ There are sometimes ways to make linear scan faster by comparison, but instead w
 
 **Sidenote:** This example with the runtime comparisons gets me thinking that I need to learn if/how to wrap other functions within a timer function in C++. I’m certain there is a way to do it cleanly and simply in a reusable way. Right now I’ll just brute-force it. 
 
+**Update:** I created a quick and dirty wrapper function in `main.cpp` that will time the execution for each block of linearScan searches. It’s ugly, but I think it works. 
+
 ## Option 2:  Binary Search
+
+Find a target value in a *sorted* list. This only works on sorted data. It will work on data sorted in both increasing or decreasing order, but to start consider the increasing order case.
+
+1. Sort the data in increasing order. 
+2. Partition the list $X$ in half. 
+3. Determine which half of the data $v\subset X$ *must* contain the target. 
+4. Discard the other half (the complement) of $X$ where the target does not exist. 
+5. Repeat the process with subsequent halves that must contain the data. 
+
+For example, consider the value `target = 7` in set $X = \{1, 2, 3,4,5,6,7,8,9\}$. 
+
+We see that for the nine integers in $X$ that the midpoint is at value `5`. Crucially, we know since this list is sorted, any value before the midpoint (value `5`) must be less than the midpoint value. Additionally, we know that since `7 > 5`, we can discard everything before the midpoint value confidently since the subset before `5` *must* be less than target value `7`. 
+
+More formally, considering a *sorted array* $A$: 
+
+> $A[i] \leq A[j]$ for any pair of indices $i$ and $j$ such that $i \lt j$.
+
+Binary search tracks the current search space with two bounds: 
+
+1. the upper bound `IndexHigh`: marks the highest index of the array that is part of the active search space. 
+2. the lower bound `IndexLow`: marks the lowest index of the array that is part of the active search space. 
+
+Therefore, if the target value $v$ is in the array, we guarantee that: 
+
+> `A[IndexLow]` $\leq v \leq$ `A[IndexHigh]`
+
+Each iteration begins by choosing the *midpoint of the current search space.*
+
+```pseudocode
+IndexMid = Floor((IndexHigh + IndexLow) / 2)
+```
+
+`Floor` is here a mathematical function that will round the number down to an integer. 
+
+Compare the value at the middle location `A[IndexMid]` with the target value `v`. 
+
+Now comes a conditional branch: 
+
+```pseudocode
+IF A[IndexMid] == v:
+	RETURN IndexMid
+ELSEIF A[IndexMid] < v:
+	IndexLow = IndexMid + 1
+ELSE
+	IndexHigh = IndexMid - 1
+```
+
+Putting this together, we see a the initialization and first iteration would look like:
+
+```pseudocode
+Array: A[N]
+Int: IndexHigh = N - 1
+Int: IndexLow = 0
+
+Type: v 	// target value
+
+// this only represents the initial evaluation. The following will be within 
+// a loop in an actual implementation. 
+Int: IndexMid = Floor((IndexHigh + IndexLow) / 2)
+
+IF A[IndexMid] == v:
+  RETURN IndexMid
+ELSEIF A[IndexMid] < v:
+  IndexLow = IndexMid + 1
+ELSEIF A[IndexMid] > v:
+  IndexHigh = IndexMid - 1
+```
+
+So how to deal with absent values? We need to confirm if the value is in the array at all. How does Binary Search accomplish this? 
+
+In the case of Linear Scan we know that if we hit the end of the list and do not find the value, we know it cannot be in the array. For binary search we test the index bounds themselves. How does this work? 
+
+As the search progresses, we know that `IndexHigh` and `IndexLow` grow closer together (converge) *until there are no unexplored values between them.*
+
+Since we are always moving the bounds *past the midpoint index*, we can stop the search when IndexHigh < IndexLow. At that point, we can guarantee the value is *not* in the list. 
+
+The simplest way I can think of doing this is to set the condition of a `WHILE` loop such that the loop continues while `IndexLow <= IndexHigh`, then when the loop terminates without returning another index, the fall-through case is `RETURN -1`. 
+
+Combining this case with the other requirements, we can put together an algorithm for binary search using a single loop that looks like this: 
+
+```pseudocode
+Array: A[N]
+Int: IndexLow = 0
+Int: IndexHigh = N - 1
+Int: IndexMid
+Type: v		// target value
+
+WHILE(IndexLow <= IndexHigh)
+	IndexMid = Floor((IndexHigh + IndexLow) / 2)
+	IF A[IndexMid] == v:
+		RETURN IndexMid
+	ELSEIF A[IndexMid] < v: 
+		IndexLow = IndexMid + 1
+	ELSE
+		IndexHigh = IndexMid - 1
+
+RETURN -1	// fallthrough case. 
+	
+```
+
+Now I’ll try to adapt this to C++ code in my project repository for the book workthrough.
+
+This seems to work, and now I run comparisons with a short array of 11 elements against linear scan. 
+
+The common denominator after a few iterations of performance tests shows that the binary search is much more reliable on this processor in terms of its execution time, whereas the linear scan varies quite a bit. However, returning a “not found” value takes far less time with the binary search. This suggests scaling binary search to larger data sets to be far better than a linear scan.
+
+### Adapting Binary Search to Other Problems: 
+
+Stuff 
+
+
+
+### Runtime Analysis:
+
+Stuff
+
+
 

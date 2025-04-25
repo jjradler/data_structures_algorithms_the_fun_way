@@ -8,7 +8,7 @@ int linearScan(int *A, int target, int arraySize)
 
   while(i < arraySize)
   {
-    std::cout << "i = " << i << "\tA[i] = " << A[i] << std::endl;
+    // std::cout << "i = " << i << "\tA[i] = " << A[i] << std::endl;
     if(A[i] == target)
     {
         return i; // found it!

@@ -15,8 +15,10 @@
 
 using namespace std::chrono;
 #include "linear_scan.h"
+#include "binary_search.h"
 
 void linearScanTimer(int *A, int target, int arraySize);
+void binarySearchTimer(int *A, int target, int arraySize);
 
 int main()
 {
@@ -28,24 +30,10 @@ int main()
   // first time the case of a value we know is in the middle of the array.
   target = 8;
   linearScanTimer(A, target, 11);
-  /*
-  auto start = high_resolution_clock::now();
-  targetIndex = linearScan(A, target);
-  auto stop = high_resolution_clock::now();
-  auto dt = duration_cast<microseconds>(stop-start);
-  std::cout << "Linear Scan returned index " << targetIndex << " in " << dt.count() << " ms." << std::endl;
-  */
 
   // then time the case of linear scan where the value is NOT in the array.
   target = 2;
   linearScanTimer(A, target, 11);
-  /*
-  start = high_resolution_clock::now();
-  targetIndex = linearScan(A, target);
-  stop = high_resolution_clock::now();
-  dt = duration_cast<microseconds>(stop-start);
-  std::cout << "Linear Scan returned index " << targetIndex << " in " << dt.count() << " ms." << std::endl;
-  */
 
   // then one more at the very beginning
   target = 3;
@@ -55,6 +43,18 @@ int main()
   target = 17;
   linearScanTimer(A, target, 11);
 
+  // Now moving on to testing a binary search timer.
+  target = 8;
+  binarySearchTimer(A, target, 11);
+
+  target = 2;
+  binarySearchTimer(A, target, 11);
+
+  target = 3;
+  binarySearchTimer(A, target, 11);
+
+  target = 17;
+  binarySearchTimer(A, target, 11);
   return 0;
 }
 
@@ -70,4 +70,18 @@ void linearScanTimer(int *A, int target, int arraySize)
   auto dt = duration_cast<nanoseconds>(stop-start);
   std::cout << "Linear Scan returned index " << targetIndex << " in " << dt.count() << " ns." << std::endl;
 
+}
+
+
+/*
+ * wrapper function for binary search timer
+ */
+void binarySearchTimer(int* A, int target, int arraySize)
+{
+  int targetIndex = 0;
+  auto start = high_resolution_clock::now();
+  targetIndex = binarySearch(A, target, arraySize);
+  auto stop = high_resolution_clock::now();
+  auto dt = duration_cast<nanoseconds>(stop-start);
+  std::cout << "Binary Search returned index " << targetIndex << " in " << dt.count() << " ns." << std::endl;
 }

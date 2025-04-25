@@ -207,13 +207,51 @@ The common denominator after a few iterations of performance tests shows that th
 
 ### Adapting Binary Search to Other Problems: 
 
-Stuff 
+How can we adapt it to other types of values besides Integers? This search technique can be applied to continuous data (semi-continuous anyway in the most rigorous sense) as well. 
 
+This approach doesn’t start with a set of individual items or indices, but instead uses high and low bounds on the *values* themselves. 
 
+This seems quite useful for signal processing, data analysis in general, or crafting the ideal cup of coffee (from Kubica). 
+
+To do this we start with reasonable guesses for the upper and lower bounds of the value range. 
+
+Using the coffee example: 
+
+**LowerBound = 0 tbsp:** where the coffee is  just hot water. 
+
+**UpperBound = 5 tbsp:** the coffee is strong as battery acid. 
+
+The optimized value is somewhere in between these values. *Now the bounds are the values themselves instead of the indices.*
+
+1. Set upper and lower bound guesses. 
+2. Compute the midpoint guess in the same fashion as before. (for our example, this would be 2.5 tbsp.)
+3.  It turns out the 2.5 tbsp coffee is just a bit too strong, so we set this as the upper bound again just like with the index-based search example. 
+4.  Halving 2.5 to 1.25 tbsp makes too weak a cup of coffee, so we set this as a new lower bound.
+5. The range continues to narrow further and further until we reach our optimal point, but how do we know when the optimal point is reached? 
+6. We terminate the search when the range is sufficiently small using a threshold value ($\epsilon$).  $UpperBound - LowerBound \lt \epsilon$ where $\epsilon$ is chosen by the analyst as a negligibly small convergence value. Let’s say for our example we set the threshold at 0.0001 tbsp. 
+
+This forms the basis for various technical computing methods like optimizations, gradient descent, and *bisection search* which is used to find the zero (pole) of a function or the value $x$ such that $f(x) = 0$. 
 
 ### Runtime Analysis:
 
-Stuff
+How much faster is binary search over linear scan, exactly? 
+
+The relative speed depends on the data itself as we see in the tests I ran with my own implementations: 
+
+* Linear scan will always win when you hit the target on the first or second try. 
+* Binary Search might be overkill for small lists. 
+* If you only have two elements, by all means use Linear Scan. Binary Search won’t work here. 
+
+Algorithms are often analyzed in terms of the average and worst-case performance as the size of data $N$ grows. Computer science use measures like Big-O notation, but for simplicity let’s consider the algorithms less rigorously here: 
+
+* Whats the average-case runtime as the data size grows? 
+* Whats the worst-case runtime of an algorithm as the size of the data grows? 
+
+Worst case performance seems easiest to start with. What are the worst cases? 
+
+For Linear Scan, worst-case scenarios are where the target is not located in the array at all. Every value is checked in vain! N comparisons are required for N values. This implies a *linear* worst-case performance with the data size $N$. 
+
+Meanwhile, Binary Scan’s worst-case will at least discard half of the data at each step, so the number of comparisons is *logarithmic* with $N$. Specifically, we can determine that it scales as $log_{2}N$ if we neglect the additional computing cycles needed for calculations and comparisons, and shifting values around in the registers to reset the bound values. Still, for very large lists, the benefit of needing only a $log_{2}N$ number of comparisons for $N$ values is undeniable over a linear scaling for large $N$. 
 
 
 

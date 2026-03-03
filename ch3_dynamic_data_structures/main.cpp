@@ -65,6 +65,11 @@ int main()
   cout << "Testing element that does not exist... \n ";
   cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
 
+  cout << "Testing LinkedList.append()\n"; 
+  testList.append(27); 
+  testList.addressPrint(); 
+  cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
+
   return 0;
 }
 

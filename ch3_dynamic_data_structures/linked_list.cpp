@@ -14,6 +14,7 @@ Node::Node()
     next = NULL; 
 }
 
+
 // Parameterized constructor
 Node::Node(int data)
 {
@@ -21,10 +22,12 @@ Node::Node(int data)
     this->next = NULL;
 }
 
+
 Node::~Node()
 {
     ;
 }
+
 
 /*!
 * default constructor
@@ -32,6 +35,7 @@ Node::~Node()
 LinkedList::LinkedList() {
     head = NULL;
 }
+
 
 /*!
 * parameterized constructor
@@ -42,6 +46,7 @@ LinkedList::LinkedList(int headValue)
     head->next = NULL; 
 }
 
+
 /*!
 * LinkedList destructor method. 
 */
@@ -50,13 +55,33 @@ LinkedList::~LinkedList()
     ;
 }
 
+
 /*!
 * Append a LinkedListNode to this LinkedList (FIXME: THIS DOES NOT WORK AT ALL.)
 */
 void LinkedList::append(int value)
 {
-    ;
+    Node* temp = head;
+    Node* newNode = new Node(value); 
+
+    // Assign to head if the list is empty
+    if (temp == NULL)
+    {
+        head = newNode;
+        return; 
+    }
+    else
+    {
+        while(temp->next != NULL)
+        {
+            temp = temp->next; 
+        }
+        
+        newNode->next = NULL; 
+        temp->next = newNode; 
+    }
 }
+
 
 /*!
 * Insert a LinkedListNode between two existing nodes.
@@ -67,6 +92,7 @@ void LinkedList::insert(int previousValue, int value)
     std::cout << "Inserting value between values...";
 }
 
+
 /*!
 * Remove a specific LinkedListNode from its stored value. 
 */
@@ -75,6 +101,7 @@ void LinkedList::remove(int value)
     // Does this need some kind of guard statement to throw an exception if linked list has no more nodes? 
     std::cout << "Removing node...";
 }
+
 
 /*!
 * Pushes a new node to the front (head) of the list. No return value. 
@@ -95,6 +122,7 @@ void LinkedList::push(int data)
     this->head = newNode; 
 }
 
+
 /*!
 * Pops the top (head) node off the linked list, returning the value and resets the second node as the new head. 
 */
@@ -107,6 +135,7 @@ int LinkedList::pop()
     // cout << "Pop!\n"; 
     return value; 
 }
+
 
 /*!
 * Return the `element_number` based on the `value`. 
@@ -133,6 +162,7 @@ int LinkedList::lookupElement(int value)
     return element_number;
 }
 
+
 /*!
 * Return the `value` of a specific `element_number`.
 */
@@ -141,6 +171,7 @@ int LinkedList::lookupValue(int element_number)
     int stored_value = 0; 
     return stored_value;
 }
+
 
 /*! 
 * Returns `size` of the entire `LinkedList` as an integer.  

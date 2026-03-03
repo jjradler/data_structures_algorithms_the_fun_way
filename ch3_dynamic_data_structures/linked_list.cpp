@@ -1,5 +1,7 @@
 /* linked_list.cpp
  * Written from Kubica's Data Structures the Fun Way as illustrative example.
+ * A slghtly more than barebones implementation of a singly-linked list with some convenience functions just to illustrate
+ * how these data structures work (and to polish some of the rust off of my C++ skills with pointers and classes...)
  * 2025-05-20
  */
 #include <iostream>

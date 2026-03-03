@@ -54,6 +54,16 @@ int main()
   testList.addressPrint(); 
 
   cout << "Testing LinkedList.pop()" << endl; 
+  int poppedValue = testList.pop(); 
+  cout << "Popped value " << poppedValue << " off the list.\n"; 
+  testList.print(); 
+
+  cout << "Testing LinkedList.lookupElement()\n";
+  testList.push(poppedValue); 
+  cout << "Element 23 is at index: " << testList.lookupElement(23) << endl; 
+  cout << "Element 11 is at index: " << testList.lookupElement(11) << endl;
+  cout << "Testing element that does not exist... \n ";
+  cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
 
   return 0;
 }

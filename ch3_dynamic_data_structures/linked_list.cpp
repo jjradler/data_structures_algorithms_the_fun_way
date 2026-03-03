@@ -100,10 +100,12 @@ void LinkedList::push(int data)
 */
 int LinkedList::pop()
 {
-    // T nodeValue = this->headPointer.value; 
-    // return nodeValue;
-    cout << "Pop!"; 
-    return 0; 
+    int value = this->head->data; 
+    Node* newHead = this->head->next; 
+    this->head->~Node();
+    this->head = newHead;
+    // cout << "Pop!\n"; 
+    return value; 
 }
 
 /*!
@@ -111,7 +113,23 @@ int LinkedList::pop()
 */
 int LinkedList::lookupElement(int value)
 {
-    int element_number = 0;
+    Node* temp = head; 
+    int element_number = 0; 
+
+    while(temp->data != value)
+    {
+        element_number++; 
+        if (temp->next == NULL)
+        {
+            cout << "Value not found.\n";
+            return -1; 
+        }
+        else
+        {
+            temp = temp->next; 
+        }
+    }
+    
     return element_number;
 }
 

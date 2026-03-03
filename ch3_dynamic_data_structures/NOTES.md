@@ -102,9 +102,10 @@ Implementing this might look like constructing a linked-list class comprised of 
 The buildout will start with: 
 
 1. Basic Node class construction. 
-2. Linked List class construction. 
-3. Adding lookup methods to the linked list. 
-4. Adding insert and remove to the linked list.
-5. Adding append to the linked list. 
-6. Adding some diagnostic methods like size() for actually using the thing. 
+
+1. Linked List class construction. 
+2. Adding lookup methods to the linked list. 
+3. Adding insert and remove to the linked list.
+4. Adding append to the linked list. 
+5. Adding some diagnostic methods like size() for actually using the thing. 
 

@@ -70,6 +70,12 @@ int main()
   testList.addressPrint(); 
   cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
 
+  cout << "Testing LinkedList.insert()";
+
+  cout << "Testing LinkedList.remove()";
+
+  cout << "Testing LinkedList.lookupValue()"; 
+
   return 0;
 }
 

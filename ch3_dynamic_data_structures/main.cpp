@@ -70,11 +70,13 @@ int main()
   testList.addressPrint(); 
   cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
 
-  cout << "Testing LinkedList.insert()";
+  cout << "Testing LinkedList.insert()\n";
 
-  cout << "Testing LinkedList.remove()";
+  cout << "Testing LinkedList.remove()\n";
 
-  cout << "Testing LinkedList.lookupValue()"; 
+  cout << "Testing LinkedList.lookupValue()\n"; 
+
+  // TODO: Add a test harness to this repository, maybe using Unity or CPPUTest? 
 
   return 0;
 }

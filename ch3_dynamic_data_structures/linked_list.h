@@ -19,7 +19,8 @@ class LinkedList {
     ~LinkedList();
     void append(int value); 
     void insert(int previousValue, int value);
-    void remove(int value);
+    int remove(int elementIndex);
+    int removeByValue(int value); 
     void push(int value); 
     int pop(); 
     int lookupElement(int value);

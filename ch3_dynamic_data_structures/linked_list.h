@@ -19,6 +19,7 @@ class LinkedList {
     ~LinkedList();
     void append(int value); 
     void insert(int previousValue, int value);
+    void insertByIndex(int previousIndex, int value); 
     int remove(int elementIndex);
     int removeByValue(int value); 
     void push(int value); 
@@ -28,6 +29,12 @@ class LinkedList {
     int get_size();
     void print(); 
     void addressPrint();
+};
+
+// TODO: Add doubly linked list that inherits all attributes and methods from LinkedList but adds a "previous" pointer. Override methods to account for this as needed. 
+class DoublyLinkedList : public LinkedList {
+  public: 
+    Node *previous; 
 };
 
 #endif /*LINKED_LIST_H*/

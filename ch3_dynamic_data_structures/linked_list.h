@@ -1,5 +1,13 @@
+/*!
+*   linked_list.h
+*   jjradler
+*   created: 2026-03-01
+*   updated: 2026-03-05
+*/
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
+
 
 class Node {
   public:
@@ -11,30 +19,56 @@ class Node {
     ~Node(); 
 };
 
-class LinkedList {
-    Node* head;   // pointer to linked list head node. 
+
+class DoubleNode {
   public:
+    int data; 
+    DoubleNode* next; 
+    DoubleNode* previous; 
+    DoubleNode(); 
+    DoubleNode(int value); 
+    ~DoubleNode(); 
+};
+
+
+class LinkedList {
+  public:
+    Node* head;   // pointer to linked list head node. 
     LinkedList(); 
     LinkedList(int headValue);
     ~LinkedList();
     void append(int value); 
+    int get_size();
     void insert(int previousValue, int value);
     void insertByIndex(int previousIndex, int value); 
-    int remove(int elementIndex);
-    int removeByValue(int value); 
-    void push(int value); 
-    int pop(); 
     int lookupElement(int value);
     int lookupValue(int element_number);
-    int get_size();
+    void push(int value); 
     void print(); 
-    void addressPrint();
+    void printAddress();
+    int pop(); 
+    int remove(int value); 
+    int removeByIndex(int elementIndex);
 };
 
-// TODO: Add doubly linked list that inherits all attributes and methods from LinkedList but adds a "previous" pointer. Override methods to account for this as needed. 
-class DoublyLinkedList : public LinkedList {
+
+class DoublyLinkedList {
   public: 
-    Node *previous; 
+    DoubleNode* head; 
+    DoublyLinkedList(); 
+    ~DoublyLinkedList(); 
+    void append(int value); 
+    int get_size(); 
+    void insert(int previousValue, int insertValue);
+    void insertByIndex(int previousIndex, int value); 
+    int lookupElement(int value);
+    int lookupValue(int elementNumber);
+    int pop(); 
+    void print(); 
+    void printAddress();
+    void push(int value); 
+    int remove(int value); 
+    int removeByIndex(int elementIndex); 
 };
 
 #endif /*LINKED_LIST_H*/

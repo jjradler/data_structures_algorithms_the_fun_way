@@ -1,7 +1,8 @@
-/*
+/*!
  * Data Structures the Fun Way by J. Kubicka
  * Implemented in C++ by jjradler 
- * Updated: 2026-03-03
+ * Created: 2026-03-01
+ * Updated: 2026-03-05
  */
 
 #include <iostream>
@@ -36,7 +37,7 @@ int main()
   cout << endl;
 
 
-  cout << "** BEGIN LINKED LIST TESTS **" << endl; 
+  cout << "\n** BEGIN LINKED LIST TESTS **" << endl; 
   LinkedList testList;  
   cout << "testList size is set to " << testList.get_size() << endl; 
 
@@ -51,23 +52,23 @@ int main()
   cout << "testList size is now: " << testList.get_size() << endl;
 
   testList.print(); 
-  testList.addressPrint(); 
+  testList.printAddress(); 
 
   cout << "Testing LinkedList.pop()" << endl; 
   int poppedValue = testList.pop(); 
   cout << "Popped value " << poppedValue << " off the list.\n"; 
   testList.print(); 
 
-  cout << "** Testing LinkedList.lookupElement() **\n";
+  cout << "\n** Testing LinkedList.lookupElement() **\n";
   testList.push(poppedValue); 
   cout << "Element 23 is at index: " << testList.lookupElement(23) << endl; 
   cout << "Element 11 is at index: " << testList.lookupElement(11) << endl;
   cout << "Testing element that does not exist... \n ";
   cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
 
-  cout << "** Testing LinkedList.append() **\n"; 
+  cout << "\n** Testing LinkedList.append() **\n"; 
   testList.append(27); 
-  testList.addressPrint(); 
+  testList.print(); 
   
   cout << "Element 27 is at index: " << testList.lookupElement(27) << endl; 
   
@@ -78,48 +79,96 @@ int main()
   testList.lookupValue(-2); // this should also yield an error. 
   testList.lookupValue(4); // this should also yield an error. 
 
-  cout << "**Testing LinkedList.insert()**\n";
+  cout << "\n**Testing LinkedList.insert()**\n";
   testList.insert(11, 314); // insert node 314 after node with value 11
-  testList.addressPrint(); // diagnostic testprint. 
+  testList.printAddress(); // diagnostic testprint. 
   testList.insert(27, 42); 
-  testList.addressPrint(); 
+  testList.printAddress(); 
 
+  cout << "\n** Testing testList.remove(value) **\n"; 
+  testList.print(); 
+  testList.remove(42);
+  testList.print(); 
+  testList.append(42); 
+  testList.print(); 
+  testList.remove(314); 
+  testList.print(); 
+  testList.insert(11, 314); 
+  testList.print(); 
+  testList.remove(245); 
+  testList.print(); 
+  testList.push(245); 
+  testList.print(); 
 
-  cout << "** Testing LinkedList.remove() ** \n";
+  cout << "\n** Testing LinkedList.insertByIndex() ** \n";
+  testList.insertByIndex(0, 5); 
   testList.print();
-  cout << "testList.remove(0) status: " << testList.remove(0) << endl; // should remove the head node and test an edge case. 
+  testList.remove(5); 
+  testList.print(); 
+  testList.removeByIndex(0); 
+  testList.print();
+  testList.push(245);
+  testList.print(); 
+  testList.insertByIndex(5,5); 
+  testList.print();
+  testList.removeByIndex(5); 
+  testList.print(); 
+  testList.append(42); 
+
+  cout << "\n** Testing LinkedList.removeByIndex() ** \n";
+  testList.print();
+  cout << "testList.removeByIndex(0) status: " << testList.removeByIndex(0) << endl; // should remove the head node and test an edge case. 
   testList.print();
   testList.push(245); 
-  cout << "testList.remove(3) status: " << testList.remove(3) << endl;
+  cout << "testList.removeByIndex(3) status: " << testList.removeByIndex(3) << endl;
   testList.print();
   testList.insert(11, 314); 
   testList.print();
-  cout << "testList.remove(4) status: " << testList.remove(4) << endl;
+  cout << "testList.removeByIndex(4) status: " << testList.removeByIndex(4) << endl;
   testList.print();
   testList.insert(314, 27); 
   testList.print(); 
-  cout << "testList.remove(5) status: " << testList.remove(5) << endl;
+  cout << "testList.removeByIndex(5) status: " << testList.removeByIndex(5) << endl;
   testList.print(); 
   cout << "Trying that again should yield an error...\n";
-  cout << "testList.remove(5) status: " << testList.remove(5) << endl;
-  testList.addressPrint();
+  cout << "testList.removeByIndex(5) status: " << testList.removeByIndex(5) << endl;
+  testList.print();
   cout << "The following three tests should all show errors...\n";
+
   LinkedList testList2;  // create a new empty list. 
-  testList2.remove(0); // should return an error because it is empty. 
-  testList2.remove(1); 
-  testList2.remove(-1); 
-
-  cout << "** Testing testList.removeByValue(value) **\n"; 
-  // testList.removeByValue(value); 
-
+  testList2.removeByIndex(0); // should return an error because it is empty. 
+  testList2.removeByIndex(1); 
+  testList2.removeByIndex(-1); 
+  testList2.~LinkedList(); 
   cout << "\n ** END SINGLY LINKED LIST TESTS **\n";
-  cout << "\n\n ** BEGIN DOUBLY LINKED LIST TESTS ** \n";
-  // doubly linked list examples. 
+
+  cout << "\n ** BEGIN DOUBLY LINKED LIST TESTS ** \n";
+  DoublyLinkedList testList3; 
+  testList3.print();
+  testList3.push(1); 
+  testList3.print();
+  testList3.push(3); 
+  testList3.print(); 
+  testList3.push(5); 
+  cout << "testList3 size = " << testList3.get_size() << endl;
+  testList3.append(7);
+  testList3.append(9);
+  cout << "testList3 size is now = " << testList3.get_size() << endl; 
+  cout << "Popped value: " << testList3.pop() << " off testList3.\n"; 
+  testList3.print();
+  testList3.insert(7, 8); 
+  testList3.print();
+  testList3.insertByIndex(2, 5);
+  testList3.print();
+  testList3.printAddress(); 
+
+  testList3.~DoublyLinkedList(); 
   cout << "\n ** END DOUBLY LINKED LIST TESTS ** \n"; 
   // TODO: Add a test harness to this repository, maybe using Unity or CPPUTest? 
 
   return 0;
 }
+
 
 /*! 
 * Convenience Function for representing an array for testing array doubling functions. 
@@ -133,5 +182,3 @@ void arrayPrint(int* a, int arraySize)
   }
   cout << "]" << endl;
 }
-
-
